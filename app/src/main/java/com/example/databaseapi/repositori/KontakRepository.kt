@@ -29,4 +29,27 @@ class NetworkKontakRepositori(
         kontakApiService.updateKontak(id, kontak)
     }
 
-    
+    override suspend fun deletekontak(id: Int) {
+        try {
+            val response = kontakApiService.deleteKontak(id)
+            if (!response.isSuccessful){
+                throw IOException("Failed to delete kontak. HTTP status code: " +
+                "${response.code()}"
+                )
+            }
+            else{
+                response.message()
+                println(response.message())
+            }
+        }
+        catch (e:Exception){
+            throw e
+        }
+
+    }
+
+    override suspend fun getkontakById(id: Int): Kontak {
+        return kontakApiService.getKontakById(id)
+    }
+
+}
