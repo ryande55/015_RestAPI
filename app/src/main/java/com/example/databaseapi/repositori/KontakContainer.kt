@@ -17,4 +17,11 @@ class KontakContainer : AppContainer {
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(baseUrl).build()
 
-    
+    private val kontakService: KontakService by lazy {
+        retrofit.create(KontakService::class.java)
+
+    }
+    override val kontakRepositori: KontakRepositori by lazy {
+        NetworkKontakRepositori(kontakService)
+    }
+}
