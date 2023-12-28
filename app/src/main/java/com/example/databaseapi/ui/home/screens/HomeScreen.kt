@@ -169,5 +169,82 @@ fun OnError(
     }
 }
 
+@Composable
+fun KontakLayout(
+    kontak: List<Kontak>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(kontak) { kontak ->
+            KontakCard(kontak = kontak, modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onDetailClick(kontak) },
+                onDeleteClick = {
+                    onDeleteClick(kontak)
+                }
+            )
 
+        }
+    }
+}
+
+@Composable
+fun KontakCard(
+    kontak: Kontak,
+    onDeleteClick: (Kontak) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = kontak.nama,
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Phone,
+                    contentDescription = null
+                )
+                Text(
+                    text = kontak.telpon,
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+            }
+            Text(
+                text = kontak.alamat,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(Modifier.weight(1f))
+            IconButton(onClick = { onDeleteClick(kontak) }) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null
+                )
+
+            }
+
+        }
+
+    }
+
+}
 
