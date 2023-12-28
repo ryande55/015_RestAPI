@@ -16,3 +16,17 @@ interface KontakRepositori{
     suspend fun getkontakById(id: Int): Kontak
 }
 
+class NetworkKontakRepositori(
+    private val kontakApiService: KontakService
+) : KontakRepositori {
+    override suspend fun getKontak(): List<Kontak> = kontakApiService.getKontak()
+
+    override suspend fun insertkontak(kontak: Kontak) {
+        kontakApiService.insertKontak(kontak)
+    }
+
+    override suspend fun updatekontak(id: Int, kontak: Kontak) {
+        kontakApiService.updateKontak(id, kontak)
+    }
+
+    
