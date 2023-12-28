@@ -79,3 +79,85 @@ fun EntryKontakScreen(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FormInputSiswa(
+    insertUiEvent: InsertUiEvent,
+    modifier: Modifier = Modifier,
+    onValueChange: (InsertUiEvent) -> Unit = {},
+    enabled: Boolean = true
+
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        OutlinedTextField(
+            value = insertUiEvent.nama,
+            onValueChange = { onValueChange(insertUiEvent.copy(nama = it)) },
+            label = { Text("Nama") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = insertUiEvent.email,
+            onValueChange = { onValueChange(insertUiEvent.copy(email = it)) },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = insertUiEvent.nohp,
+            onValueChange = { onValueChange(insertUiEvent.copy(nohp = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            label = { Text(text = "No HP") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+
+        if (enabled) {
+            Text(
+                text = "Isi semua data",
+                modifier = Modifier.padding(start = 12.dp)
+            )
+        }
+
+        Divider(
+            thickness = 8.dp,
+            modifier = Modifier.padding(12.dp)
+        )
+
+    }
+}
+
+@Composable
+fun EntryKontakBody(
+    insertUiState: InsertUiState,
+    onSiswaValueChange: (InsertUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ) {
+        FormInputSiswa(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onSiswaValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+
+        }
+
+    }
+
+}
