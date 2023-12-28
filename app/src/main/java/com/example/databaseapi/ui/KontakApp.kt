@@ -51,31 +51,4 @@ fun KontakApp(
 
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarKontak(
-    title: String,
-    canNavigateBack: Boolean,
-    scrollBehavior: TopAppBarScrollBehavior? = null,
-    modifier: Modifier = Modifier,
-    navigateUp: () -> Unit = {}
-) {
-    CenterAlignedTopAppBar(
-        scrollBehavior = scrollBehavior,
-        title = { Text(title) },
-        modifier = modifier,
-        navigationIcon = {
-            if (canNavigateBack){
-                IconButton(onClick = navigateUp) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "")
-
-                }
-            }
-        }
-
-    )
-
-}
 
